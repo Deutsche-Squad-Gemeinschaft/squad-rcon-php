@@ -1,9 +1,8 @@
 name: CI
 on: [push]
-runs-on: [self-hosted, ec2]
 jobs:
   laravel-tests:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ec2]
     steps:
     - name: Pull repository
       uses: actions/checkout@v1

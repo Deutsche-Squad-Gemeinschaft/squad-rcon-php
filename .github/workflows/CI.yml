@@ -1,7 +1,7 @@
 name: CI
 on: [push]
 jobs:
-  laravel-tests:
+  unit-tests:
     runs-on: [self-hosted, ec2]
     steps:
     - name: Pull repository

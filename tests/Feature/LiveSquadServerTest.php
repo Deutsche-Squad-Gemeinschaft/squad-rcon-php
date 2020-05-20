@@ -139,6 +139,8 @@ class LiveSquadServerTest extends \DSG\SquadRCON\Tests\TestCase {
     public function test_admin_restart_match()
     {
         $this->assertTrue($this->squadServer->restartMatch());
+
+        sleep(30);
     }
 
     /**
@@ -149,6 +151,8 @@ class LiveSquadServerTest extends \DSG\SquadRCON\Tests\TestCase {
     public function test_admin_end_match()
     {
         $this->assertTrue($this->squadServer->endMatch());
+
+        sleep(30);
     }
 
     /**

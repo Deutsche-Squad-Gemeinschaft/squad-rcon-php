@@ -5,8 +5,8 @@
     <a href="https://dsg-gaming.de">
         <img alt="Deutsche Squad Gemeinschaft" src="https://raw.githubusercontent.com/Deutsche-Squad-Gemeinschaft/battlemetrics-php/master/dsg-badge.svg">
     </a>
-    <a href="https://travis-ci.org/Deutsche-Squad-Gemeinschaft/squad-rcon-php">
-        <img alt="Deutsche Squad Gemeinschaft" src="https://travis-ci.org/Deutsche-Squad-Gemeinschaft/squad-rcon-php.png?branch=master">
+    <a href="https://github.com/Deutsche-Squad-Gemeinschaft/squad-rcon-php/actions">
+        <img alt="Deutsche Squad Gemeinschaft" src="https://github.com/Deutsche-Squad-Gemeinschaft/squad-rcon-php/workflows/CI/badge.svg">
     </a>
     <a href="https://codecov.io/gh/Deutsche-Squad-Gemeinschaft/squad-rcon-php">
         <img alt="Deutsche Squad Gemeinschaft" src="https://codecov.io/gh/Deutsche-Squad-Gemeinschaft/squad-rcon-php/branch/master/graph/badge.svg">

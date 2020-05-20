@@ -12,10 +12,10 @@ jobs:
       run: mkdir -p /opt/squad-dedicated/SquadGame/ServerConfig && cp tests/Rcon.cfg /opt/squad-dedicated/SquadGame/ServerConfig/Rcon.cfg
     - name: Remove old Container
       run: docker stop squad-server || true  && docker rm squad-server || true
-    - name: Run the Squad server
-      run: docker run -d -p 7787:7787/udp -p 27165:27165/tcp -p 27165:27165/udp -p 21114:21114/tcp -p 21114:21114/udp -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --volume=/opt/squad-dedicated:/home/steam/squad-dedicated --name=squad-server cm2network/squad
+    - name: Run the Squad Server
+      run: docker run --network=actions-runner_default -d -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --volume=/opt/squad-dedicated:/home/steam/squad-dedicated --name=squad-server cm2network/squad
     - name: Wait for Squad Server to start up
-      run: sleep 150
+      run: sleep 120
     - name: Log Squad Server
       run: docker logs squad-server
     - name: Run PHPUnit

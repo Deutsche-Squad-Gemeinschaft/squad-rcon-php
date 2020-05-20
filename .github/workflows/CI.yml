@@ -10,6 +10,8 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
     - name: Setup Squad Server Rcon config
       run: mkdir -p /opt/squad-dedicated/SquadGame/ServerConfig && cp tests/Rcon.conf /opt/squad-dedicated/SquadGame/ServerConfig/Rcon.conf
+    - name: Remove old Squad Server instances
+      run: docker stop squad-server && docker rm squad-server
     - name: Run the Docker Squad server
       run: docker run -d -p 7787:7787/udp -p 27165:27165/tcp -p 27165:27165/udp -p 21114:21114/tcp -p 21114:21114/udp -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --volume=/opt/squad-dedicated:/home/steam/squad-dedicated --name=squad-server cm2network/squad
     - name: Run PHPUnit

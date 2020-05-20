@@ -14,5 +14,7 @@ jobs:
       run: docker stop squad-server && docker rm squad-server
     - name: Run the Docker Squad server
       run: docker run -d -p 7787:7787/udp -p 27165:27165/tcp -p 27165:27165/udp -p 21114:21114/tcp -p 21114:21114/udp -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --volume=/opt/squad-dedicated:/home/steam/squad-dedicated --name=squad-server cm2network/squad
+    - name: Check Rcon.config
+      run: cat /opt/squad-dedicated/SquadGame/ServerConfig/Rcon.conf
     - name: Run PHPUnit
       run: vendor/bin/phpunit

@@ -15,7 +15,7 @@ jobs:
     - name: Run the Squad server
       run: docker run -d -p 7787:7787/udp -p 27165:27165/tcp -p 27165:27165/udp -p 21114:21114/tcp -p 21114:21114/udp -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --volume=/opt/squad-dedicated:/home/steam/squad-dedicated --name=squad-server cm2network/squad
     - name: Wait for Squad Server to start up
-      run: sleep 240
+      run: sleep 150
     - name: Log Squad Server
       run: docker logs squad-server
     - name: Run PHPUnit

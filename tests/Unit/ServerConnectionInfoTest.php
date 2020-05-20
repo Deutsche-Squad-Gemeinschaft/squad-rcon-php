@@ -14,7 +14,7 @@ class ServerConnectionInfoTest extends \DSG\SquadRCON\Tests\TestCase {
     {
         $info = new ServerConnectionInfo('localhost', 12345, 'secret');
         
-        $this->assertIsObject($info);
+        $this->assertTrue((bool)$info);
     }
 
     /**

@@ -30,6 +30,16 @@ class LiveSquadServerTest extends \DSG\SquadRCON\Tests\TestCase {
     }
 
     /**
+     * Verifies the set next map command does work properly
+     * 
+     * @return void
+     */
+    public function test_admin_set_next_map()
+    {
+        $this->assertTrue($this->squadServer->adminSetNextMap('Al Basrah Insurgency v1'));
+    }
+
+    /**
      * Verifies the nextMap can properly be retrieved.
      *
      * @return void
@@ -119,16 +129,6 @@ class LiveSquadServerTest extends \DSG\SquadRCON\Tests\TestCase {
     public function test_admin_change_map()
     {
         $this->assertTrue($this->squadServer->adminChangeMap('Al Basrah AAS v1'));
-    }
-
-    /**
-     * Verifies the set next map command does work properly
-     * 
-     * @return void
-     */
-    public function test_admin_set_next_map()
-    {
-        $this->assertTrue($this->squadServer->adminSetNextMap('Al Basrah AAS v1'));
     }
 
     /**

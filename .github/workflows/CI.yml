@@ -9,7 +9,7 @@ jobs:
     - name: Run Composer install
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
     - name: Setup Squad Server Rcon config
-      run: mkdir -p /opt/squad-dedicated/SquadGame/ServerConfig && cp tests/Rcon.conf /opt/squad-dedicated/SquadGame/ServerConfig/Rcon.conf
+      run: mkdir -p /opt/squad-dedicated/SquadGame/ServerConfig && cp tests/Rcon.cfg /opt/squad-dedicated/SquadGame/ServerConfig/Rcon.cfg
     - name: Remove old Container
       run: docker stop squad-server || true  && docker rm squad-server || true
     - name: Run the Squad server

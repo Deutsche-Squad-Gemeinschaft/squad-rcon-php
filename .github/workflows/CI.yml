@@ -13,9 +13,9 @@ jobs:
     - name: Remove old Container
       run: docker stop squad-server || true  && docker rm squad-server || true
     - name: Run the Squad Server
-      run: docker run --network=actions-runner_default -d -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --volume=/opt/squad-dedicated:/home/steam/squad-dedicated --name=squad-server cm2network/squad
+      run: docker run -d --network=actions-runner_default --volume=/opt/squad-dedicated:/home/steam/squad-dedicated -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --name=squad-server cm2network/squad
     - name: Wait for Squad Server to start up
-      run: sleep 120
+      run: sleep 180
     - name: Log Squad Server
       run: docker logs squad-server
     - name: Run PHPUnit

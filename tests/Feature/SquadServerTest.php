@@ -284,4 +284,14 @@ class SquadServerTest extends \DSG\SquadRCON\Tests\TestCase {
     {
         $this->assertTrue($this->squadServer->banById(1, '1h', 'Test'));
     }
+
+    /**
+     * Verifies the disconnect method works without any exception
+     * 
+     * @return void
+     */
+    public function test_squad_server_disconnect()
+    {
+        $this->assertNull($this->squadServer->disconnect());
+    }
 }

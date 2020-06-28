@@ -14,7 +14,7 @@ class SquadServer
 {
     const SQUAD_SOCKET_TIMEOUT_SECONDS = 0.5;
 
-    /** @var Ser */
+    /** @var ServerCommandRunner */
     private ServerCommandRunner $runner;
 
     /**
@@ -33,6 +33,16 @@ class SquadServer
         }
 
         $this->runner = $runner;
+    }
+
+    public function __destruct()
+    {
+        $this->disconnect();
+    }
+
+    public function disconnect() : void
+    {
+        $this->runner->disconnect();
     }
 
     /**

@@ -240,4 +240,16 @@ class SquadCommandRunner implements ServerCommandRunner {
         $response = $this->sourceQuery->Rcon($cmd . ' ' . $param);
         return substr($response, 0, strlen($expected)) == $expected;
     }
+
+    /**
+     * Disconnects the runner from any squad server instance.
+     *
+     * @return void
+     */
+    function disconnect() : void
+    {
+        if ($this->sourceQuery) {
+            $this->sourceQuery->Disconnect();
+        }
+    }
 }

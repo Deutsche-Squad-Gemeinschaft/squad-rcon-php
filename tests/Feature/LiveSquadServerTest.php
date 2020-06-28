@@ -174,4 +174,14 @@ class LiveSquadServerTest extends \DSG\SquadRCON\Tests\TestCase {
     {
         $this->assertTrue($this->squadServer->setPassword('secret'));
     }
+
+    /**
+     * Verifies the disconnect method works without any exception
+     * 
+     * @return void
+     */
+    public function test_squad_server_disconnect()
+    {
+        $this->assertNull($this->squadServer->disconnect());
+    }
 }

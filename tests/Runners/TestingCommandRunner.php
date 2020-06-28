@@ -202,4 +202,14 @@ class TestingCommandRunner implements ServerCommandRunner {
     {
         return true;
     }
+
+    /**
+     * Disconnects the runner from any squad server instance.
+     *
+     * @return void
+     */
+    function disconnect() : void
+    {
+        return;
+    }
 }

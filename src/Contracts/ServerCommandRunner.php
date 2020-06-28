@@ -153,4 +153,11 @@ interface ServerCommandRunner {
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
     function adminSetNextMap(string $map) : bool;
+
+    /**
+     * Disconnects the runner from any squad server instance.
+     *
+     * @return void
+     */
+    function disconnect() : void;
 }

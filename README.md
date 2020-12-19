@@ -34,6 +34,9 @@
     </a>
 </div>
 
+## Join the Squad RCON Community
+If you have any questions or need help with getting started with RCON in OWI games you should make sure to join the [Squad RCON Community on Discord](https://discord.gg/9F2Ng5C).
+
 ## Installation
 
 You can install this package by using composer and the following command:
@@ -74,7 +77,7 @@ The code will then be available under the `DSG\SquadRCON` namespace.
 ## USAGE
 
 ### Create an instance
-Instanciate the SquadServer RCON connection. This will connect to the server or throw an exception if it could not do so.
+Instanciate the SquadServer class to open a new RCON connection. This will throw an Exception if no connection can be made.
 ```php
 /** @var SquadServer */
 $server = new SquadServer(new ServerConnectionInfo('127.0.0.1', 21114, 'YourRconPassword'));

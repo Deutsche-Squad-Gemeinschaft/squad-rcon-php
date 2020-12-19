@@ -79,6 +79,10 @@ The code will then be available under the `DSG\SquadRCON` namespace.
 ### Create an instance
 Instanciate the SquadServer class to open a new RCON connection. This will throw an Exception if no connection can be made.
 ```php
+use DSG\SquadRCON\SquadServer;
+
+...
+
 /** @var SquadServer */
 $server = new SquadServer(new ServerConnectionInfo('127.0.0.1', 21114, 'YourRconPassword'));
 ```

@@ -15,7 +15,7 @@ jobs:
     - name: Wait for Squad Server to start up
       run: chmod +x .github/waitForServerStartup.sh && ./.github/waitForServerStartup.sh
     - name: Wait for Squad Server to fully boot
-      run: sleep 30
+      run: sleep 120
     - name: Log Squad Server
       run: docker logs squad-server
     - name: Run PHPUnit

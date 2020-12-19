@@ -8,14 +8,22 @@ jobs:
       uses: actions/checkout@v1
     - name: Run composer install
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-    - name: Stop the Server
+    - name: Stop & Remove any previous Server
       run: docker stop squad-server || true  && docker rm squad-server || true
-    - name: Install & start Squad server
-      run: docker run -d --net=bridge --volume=$PWD/tests/ServerFolder:/home/steam/squad-dedicated -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --name=squad-server cm2network/squad
-    - name: Wait for Squad Server to start up
+    - name: Create the squad-server container and install the server
+      run: docker run -d --net=bridge -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --name=squad-server cm2network/squad
+    - name: Wait for Squad Server to install & boot
       run: chmod +x .github/waitForServerStartup.sh && ./.github/waitForServerStartup.sh
-    - name: Wait for Squad Server to fully boot
-      run: sleep 120
+    - name: Stop the container
+      run: docker stop squad-server
+    - name: Add the correct Rcon.cfg
+      run: docker cp $PWD/tests/ServerFolder/SquadGame/ServerConfig/Rcon.cfg squad-server:/home/steam/squad-dedicated/SquadGame/ServerConfig/Rcon.cfg
+    - name: Re-start the squad-server container
+      run: docker start squad-server
+    - name: Wait for Squad Server to boot
+      run: chmod +x .github/waitForServerStartup.sh && ./.github/waitForServerStartup.sh
+    - name: Give it some more time to boot just to be safe
+      run: sleep 30
     - name: Log Squad Server
       run: docker logs squad-server
     - name: Run PHPUnit

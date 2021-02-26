@@ -275,8 +275,8 @@ class SquadServer
         /* Parse response */
         $arr = explode(', layer is ', $response);
         if (count($arr) > 1) {
-            $level['level'] = substr($arr[0], strlen('Current level is '));
-            $layer['layer'] = trim($arr[1]);
+            $maps['level'] = substr($arr[0], strlen('Current level is '));
+            $maps['layer'] = trim($arr[1]);
         }
 
         return $maps;

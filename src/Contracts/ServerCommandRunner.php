@@ -80,8 +80,17 @@ interface ServerCommandRunner {
     public function adminBanById(int $id, string $duration = '1d', string $reason = '') : bool;
 
     /**
+     * ShowCurrentMap command.
+     * Gets the current level and layer.
+     * 
+     * @return array
+     * @throws \DSG\SquadRCON\Exceptions\RConException
+     */
+    public function showCurrentMap() : string;
+
+    /**
      * ShowNextMap command.
-     * Gets the current and next map.
+     * Gets the next level and layer.
      * 
      * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException

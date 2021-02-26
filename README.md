@@ -51,6 +51,7 @@ The code will then be available under the `DSG\SquadRCON` namespace.
 * [x] ListPlayers
 * [x] ListSquads
 * [x] AdminListDisconnectedPlayers
+* [x] ShowCurrentMap
 * [x] ShowNextMap
 * [x] AdminKick "\<NameOrSteamId\>" \<KickReason\>
 * [x] AdminKickById \<PlayerId\> \<KickReason\>
@@ -157,15 +158,19 @@ $success = $server->adminBanById($player->getId(), '1h', 'Reason');
 ### Get the current map
 Get the current map using the ShowNextMap command
 ```php
-/** @var string */
-$map = $server->currentMap();
+/** @var array */
+$map = $server->showCurrentMap();
+echo $map['level'];
+echo $map['layer'];
 ```
 
 ### Get the next map
 Get the next map using the ShowNextMap command
 ```php
-/** @var string */
-$map = $server->nextMap();
+/** @var array */
+$map = $server->showNextMap();
+echo $map['level'];
+echo $map['layer'];
 ```
 
 ### AdminRestartMatch

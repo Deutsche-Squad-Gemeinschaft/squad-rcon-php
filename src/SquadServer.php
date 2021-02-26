@@ -261,9 +261,25 @@ class SquadServer
      * @return string
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
-    public function currentMap() : string
+    public function showCurrentMap() : array
     {
-        return $this->currentMaps()['current'];
+        /* Initialize the output */
+        $maps = [
+            'level' => null,
+            'layer' => null
+        ];
+
+        /* Run the ShowNextMap Command and get response */
+        $response = $this->runner->showCurrentMap();
+
+        /* Parse response */
+        $arr = explode(', layer is ', $response);
+        if (count($arr) > 1) {
+            $level['level'] = substr($arr[0], strlen('Current level is '));
+            $layer['layer'] = trim($arr[1]);
+        }
+
+        return $maps;
     }
 
     /**
@@ -272,19 +288,7 @@ class SquadServer
      * @return string
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
-    public function nextMap() : string
-    {
-        return $this->currentMaps()['next'];
-    }
-
-    /**
-     * ShowNextMap command.
-     * Gets the current and next map.
-     * 
-     * @return array
-     * @throws \DSG\SquadRCON\Exceptions\RConException
-     */
-    private function currentMaps() : array
+    public function showNextMap() : array
     {
         /* Initialize the output */
         $maps = [
@@ -296,12 +300,10 @@ class SquadServer
         $response = $this->runner->showNextMap();
 
         /* Parse response */
-        $arr = explode(', Next map is ', $response);
+        $arr = explode(', layer is ', $response);
         if (count($arr) > 1) {
-            $next = trim($arr[1]);
-            $curr = substr($arr[0], strlen('Current map is '));
-            $maps['current'] = $curr;
-            $maps['next'] = $next;
+            $maps['level'] = substr($arr[0], strlen('Next level is '));
+            $maps['layer'] = trim($arr[1]);
         }
 
         return $maps;

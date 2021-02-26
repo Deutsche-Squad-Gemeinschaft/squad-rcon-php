@@ -130,6 +130,18 @@ class SquadRconRunner implements ServerCommandRunner {
      * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
+    public function showCurrentMap() : string
+    {
+        return $this->sourceQuery->Rcon('ShowCurrentMap');
+    }
+
+    /**
+     * ShowNextMap command.
+     * Gets the current and next map.
+     * 
+     * @return array
+     * @throws \DSG\SquadRCON\Exceptions\RConException
+     */
     public function showNextMap() : string
     {
         return $this->sourceQuery->Rcon('ShowNextMap');

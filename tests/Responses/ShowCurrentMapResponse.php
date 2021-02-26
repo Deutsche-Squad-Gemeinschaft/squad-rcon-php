@@ -2,10 +2,10 @@
 
 namespace DSG\SquadRCON\Tests\Runners\Responses;
 
-class ShowNextMapResponse {
+class ShowCurrentMapResponse {
     public static function get() {
         return <<<EOT
-Next level is Al Basrah, layer is Belaya AAS v1
+Current level is Al Basrah, layer is Belaya AAS v1
 EOT;
     }
 }

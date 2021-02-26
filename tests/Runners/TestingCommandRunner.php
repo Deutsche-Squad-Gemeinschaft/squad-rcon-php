@@ -5,6 +5,7 @@ namespace DSG\SquadRCON\Tests\Runners;
 use DSG\SquadRCON\Contracts\ServerCommandRunner;
 use DSG\SquadRCON\Tests\Runners\Responses\ListPlayersResponse;
 use DSG\SquadRCON\Tests\Runners\Responses\ListSquadsResponse;
+use DSG\SquadRCON\Tests\Runners\Responses\ShowCurrentMapResponse;
 use DSG\SquadRCON\Tests\Runners\Responses\ShowNextMapResponse;
 
 class TestingCommandRunner implements ServerCommandRunner {
@@ -102,6 +103,18 @@ class TestingCommandRunner implements ServerCommandRunner {
     public function adminBanById(int $id, string $duration = '1d', string $reason = '') : bool
     {
         return true;
+    }
+
+    /**
+     * ShowNextMap command.
+     * Gets the current and next map.
+     * 
+     * @return string
+     * @throws \DSG\SquadRCON\Exceptions\RConException
+     */
+    public function showCurrentMap() : string
+    {
+        return ShowCurrentMapResponse::get();
     }
 
     /**

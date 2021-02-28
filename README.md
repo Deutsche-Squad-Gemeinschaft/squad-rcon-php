@@ -76,6 +76,11 @@ The code will then be available under the `DSG\SquadRCON` namespace.
 * [x] AdminRemovePlayerFromSquadById \<PlayerId\> 
 * [x] AdminWarn \<NameOrSteamId\> \<WarnReason\> 
 * [x] AdminWarnById \<PlayerId\> \<WarnReason\> 
+* [x] AdminVoteLevel \<Choices, concatenated by +\>
+* [x] AdminVoteLayer \<Choices, concatenated by +\>
+* [x] AdminVoteNextLevel \<Choices, concatenated by +\>
+* [x] AdminVoteNextLayer \<Choices, concatenated by +\>
+* [x] AdminVote \<Vote name\> \<Choices, concatenated by +\>
 
 ## USAGE
 

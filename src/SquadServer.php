@@ -423,6 +423,67 @@ class SquadServer
     }
 
     /**
+     * AdminVoteLevel command.
+     * Trigger a Level Vote for immediate change.
+     *
+     * @param string $level
+     * @return boolean
+     */
+    public function adminVoteLevel(string $levels) : bool
+    {
+        return $this->runner->adminVoteLevel($levels);
+    }
+
+    /**
+     * AdminVoteLayer command.
+     * Trigger a Layer Vote for immediate change.
+     *
+     * @param string $layer
+     * @return boolean
+     */
+    public function adminVoteLayer(string $layers) : bool
+    {
+        return $this->runner->adminVoteLayer($layers);
+    }
+
+    /**
+     * AdminVoteNextLevel command.
+     * Trigger a Level Vote for next match.
+     *
+     * @param string $level
+     * @return boolean
+     */
+    public function adminVoteNextLevel(string $levels) : bool
+    {
+        return $this->runner->adminVoteNextLayer($levels);
+    }
+
+    /**
+     * AdminVoteNextLayer command.
+     * Trigger a Layer Vote for next match.
+     *
+     * @param string $layer
+     * @return boolean
+     */
+    public function adminVoteNextLayer(string $layer) : bool
+    {
+        return $this->runner->adminVoteNextLayer($layer);
+    }
+
+    /**
+     * AdminVote command.
+     * Ingame text vote.
+     *
+     * @param string $name
+     * @param string $choices
+     * @return boolean
+     */
+    public function adminVote(string $name, string $choices) : bool
+    {
+        return $this->runner->adminVote($name, $choices);
+    }
+
+    /**
      * AdminSlomo command.
      * Sets the game speed with the AdminSlomo
      * command. Providing no parameter will set

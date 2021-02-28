@@ -174,6 +174,46 @@ class SquadRconRunner implements ServerCommandRunner {
     /**
      * @inheritDoc
      */
+    public function adminVoteLevel(string $levels) : bool
+    {
+        return $this->_consoleCommand('AdminVoteLevel', $levels, 'TODO');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function adminVoteLayer(string $layers) : bool
+    {
+        return $this->_consoleCommand('AdminVoteLayer', $layers, 'TODO');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function adminVoteNextLevel(string $levels) : bool
+    {
+        return $this->_consoleCommand('AdminVoteNextLevel', $levels, 'TODO');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function adminVoteNextLayer(string $layer) : bool
+    {
+        return $this->_consoleCommand('AdminVoteNextLayer', $layer, 'TODO');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function adminVote(string $name, string $choices) : bool
+    {
+        return $this->_consoleCommand('AdminVote', $name + ' ' + $choices, 'TODO');
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function adminSlomo(float $timeDilation = 1.0) : bool
     {
         return $this->_consoleCommand('AdminSlomo', $timeDilation);

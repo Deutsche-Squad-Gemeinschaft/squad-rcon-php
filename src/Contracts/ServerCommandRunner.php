@@ -180,7 +180,53 @@ interface ServerCommandRunner {
      * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
-    public function adminSetNextLayer(string $layer) : bool;
+    public function adminSetNextLayer(string $layers) : bool;
+
+    /**
+     * AdminVoteLevel command.
+     * Trigger a Level Vote for immediate change.
+     *
+     * @param string $level
+     * @return boolean
+     */
+    public function adminVoteLevel(string $levels) : bool;
+
+    /**
+     * AdminVoteLayer command.
+     * Trigger a Layer Vote for immediate change.
+     *
+     * @param string $layer
+     * @return boolean
+     */
+    public function adminVoteLayer(string $layers) : bool;
+
+    /**
+     * AdminVoteNextLevel command.
+     * Trigger a Level Vote for next match.
+     *
+     * @param string $level
+     * @return boolean
+     */
+    public function adminVoteNextLevel(string $levels) : bool;
+
+    /**
+     * AdminVoteNextLayer command.
+     * Trigger a Layer Vote for next match.
+     *
+     * @param string $layer
+     * @return boolean
+     */
+    public function adminVoteNextLayer(string $layer) : bool;
+
+    /**
+     * AdminVote command.
+     * Ingame text vote.
+     *
+     * @param string $name
+     * @param string $choices
+     * @return boolean
+     */
+    public function adminVote(string $name, string $choices) : bool;
 
     /**
      * AdminSlomo command.

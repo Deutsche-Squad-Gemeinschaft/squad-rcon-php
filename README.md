@@ -60,8 +60,10 @@ The code will then be available under the `DSG\SquadRCON` namespace.
 * [x] AdminBroadcast \<Message\>
 * [x] AdminRestartMatch
 * [x] AdminEndMatch
-* [x] AdminChangeMap \<MapName\>
-* [x] AdminSetNextMap \<MapName\>
+* [x] AdminChangeLevel \<LevelName\>
+* [x] AdminSetNextLevel \<LevelName\>
+* [x] AdminChangeLayer \<LayerName\>
+* [x] AdminSetNextLayer \<LayerName\>
 * [x] AdminSetMaxNumPlayers \<NumPlayers\>
 * [x] AdminSetServerPassword \<Password\>
 * [x] AdminSlomo \<TimeDilation\>
@@ -194,18 +196,32 @@ Broadcast message to all players on the server
 $success = $server->adminBroadcast('Hello from the other side');
 ```
 
-### AdminChangeMap
-Set the next map and end the current game immediately.
+### AdminChangeLevel
+Change the level ( and pick a random layer on it) and travel to it immediately
 ```php
 /** @var bool */
-$success = $server->adminChangeMap('Sumari AAS v1');
+$success = $server->adminChangeLevel('Sumari');
 ```
 
-### AdminSetNextMap
-Sets next map
+### AdminSetNextLevel
+Set the next Level ( and pick a random layer on it) to travel to after this match ends
 ```php
 /** @var bool */
-$success = $server->adminSetNextMap('Sumari AAS v1');
+$success = $server->adminSetNextLevel('Sumari');
+```
+
+### AdminChangeLayer
+Change the layer and travel to it immediately
+```php
+/** @var bool */
+$success = $server->adminChangeLayer('Sumari AAS v1');
+```
+
+### AdminSetNextLayer
+Set the next layer to travel to after this match ends
+```php
+/** @var bool */
+$success = $server->adminSetNextLayer('Sumari AAS v1');
 ```
 
 ### AdminSetMaxNumPlayers

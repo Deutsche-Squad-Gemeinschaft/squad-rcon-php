@@ -27,13 +27,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
     
     /**
-     * ListSquads command. Returns an array
-     * of Teams containing Squads. The output
-     * can be given to the listPlayers method
-     * to add and reference the Player instances.
-     *
-     * @return Team[]
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function listSquads() : string
     {
@@ -41,13 +35,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * ListPlayers command, returns an array
-     * of Player instances. The output of
-     * ListSquads can be piped into it to
-     * assign the Players to their Team/Squad.
-     *
-     * @return string
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function listPlayers() : string
     {
@@ -56,11 +44,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * ListDisconnectedPlayers command, returns an array
-     * of disconnected Player instances.
-     *
-     * @return string
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function listDisconnectedPlayers() : string
     {
@@ -68,13 +52,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdmiNkick command.
-     * Kick a Player by Name or Steam64ID
-     * 
-     * @param string $nameOrSteamId
-     * @param string $reason
-     * @return bool
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function adminKick(string $nameOrSteamId, string $reason = '') : bool
     {
@@ -82,13 +60,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminKickById command.
-     * Broadcasts the given message on the server.
-     * 
-     * @param int $id
-     * @param string $reason
-     * @return bool
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function adminKickById(int $id, string $reason = '') : bool
     {
@@ -96,13 +68,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminBan command.
-     * Bans the given Player from the Server.
-     * 
-     * @param string $msg
-     * @param string $reason
-     * @return bool
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function adminBan(string $nameOrSteamId, string $duration = '1d', string $reason = '') : bool
     {
@@ -110,13 +76,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminBanById command.
-     * Bans the given Player from the Server.
-     * 
-     * @param int $id
-     * @param string $reason
-     * @return bool
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function adminBanById(int $id, string $duration = '1d', string $reason = '') : bool
     {
@@ -124,11 +84,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * ShowNextMap command.
-     * Gets the current and next map.
-     * 
-     * @return array
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function showCurrentMap() : string
     {
@@ -136,11 +92,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * ShowNextMap command.
-     * Gets the current and next map.
-     * 
-     * @return array
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function showNextMap() : string
     {
@@ -148,12 +100,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminBroadcast command.
-     * Broadcasts the given message on the server.
-     * 
-     * @param string $msg
-     * @return bool
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function adminBroadcast(string $msg) : bool
     {
@@ -161,10 +108,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminRestartMatch command.
-     * Broadcasts the given message on the server.
-     *
-     * @return boolean
+     * @inheritDoc
      */
     public function adminRestartMatch() : bool
     {
@@ -172,10 +116,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminRestartMatch command.
-     * Broadcasts the given message on the server.
-     *
-     * @return boolean
+     * @inheritDoc
      */
     public function adminEndMatch() : bool
     {
@@ -183,12 +124,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminSetMaxNumPlayers command.
-     * Sets the max amount of players (public).
-     *
-     * @param int $slots How many public slots ther should be.
-     * @return boolean
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function adminSetMaxNumPlayers(int $slots) : bool
     {
@@ -196,12 +132,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminSetServerPassword command.
-     * Sets the password of the server.
-     *
-     * @param string $password
-     * @return boolean
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
     public function adminSetServerPassword(string $password) : bool
     {
@@ -209,40 +140,39 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminChangeMap command
-     * Immediately changes the current map to the given map.
-     * @param string $map
-     * @return bool
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
-    public function adminChangeMap(string $map) : bool
+    public function adminChangeLevel(string $level) : bool
     {
-        return $this->_consoleCommand('AdminChangeMap', $map, 'Changed map to');
+        return $this->_consoleCommand('AdminChangeLayer', $level, 'Changed level to');
     }
 
     /**
-     * AdminSetNextMap command.
-     * Temporarily overwrites the next map in the
-     * MapRotations, effecively changing the next map.
-     * 
-     * @param string $map
-     * @return bool
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
      */
-    public function adminSetNextMap(string $map) : bool
+    public function adminSetNextLevel(string $level) : bool
     {
-        return $this->_consoleCommand('AdminSetNextMap', $map, 'Set next map to');
+        return $this->_consoleCommand('AdminSetNextLayer', $level, 'Set next level to');
     }
 
     /**
-     * AdminSlomo command.
-     * Sets the game speed with the AdminSlomo
-     * command. Providing no parameter will set
-     * the speed to default.
-     *
-     * @param float $timeDilation
-     * @return boolean
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @inheritDoc
+     */
+    public function adminChangeLayer(string $layer) : bool
+    {
+        return $this->_consoleCommand('AdminChangeLayer', $layer, 'Changed layer to');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function adminSetNextLayer(string $layer) : bool
+    {
+        return $this->_consoleCommand('AdminSetNextLayer', $layer, 'Set next layer to');
+    }
+
+    /**
+     * @inheritDoc
      */
     public function adminSlomo(float $timeDilation = 1.0) : bool
     {
@@ -250,12 +180,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminForceTeamChange command.
-     * Forces a player to the opposite team
-     * by providing the name or steamid.
-     *
-     * @param string $nameOrSteamId
-     * @return boolean
+     * @inheritDoc
      */
     public function adminForceTeamChange(string $nameOrSteamId) : bool
     {
@@ -263,12 +188,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminForceTeamChangeById command.
-     * Forces a player to the opposite team
-     * by providing the ingame Player id.
-     *
-     * @param integer $playerId
-     * @return boolean
+     * @inheritDoc
      */
     public function adminForceTeamChangeById(int $playerId) : bool
     {
@@ -276,12 +196,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminDemoteCommander command.
-     * Demotes a player from the commander slot
-     * by providing the name or steamid.
-     *
-     * @param string $playerName
-     * @return boolean
+     * @inheritDoc
      */
     //public function adminDemoteCommander(string $nameOrSteamId) : bool
     //{
@@ -289,12 +204,7 @@ class SquadRconRunner implements ServerCommandRunner {
     //}
 
     /**
-     * AdminDemoteCommanderById command.
-     * Demotes a player from the commander slot
-     * by providing the ingame Player id.
-     *
-     * @param integer $playerId
-     * @return boolean
+     * @inheritDoc
      */
     //public function adminDemoteCommanderById(int $playerId) : bool
     //{
@@ -302,12 +212,7 @@ class SquadRconRunner implements ServerCommandRunner {
     //}
 
     /**
-     * AdminDisbandSquad command.
-     * Disbands a Squad by providing the Team id  / index & Squad id / index.
-     *
-     * @param integer $teamId
-     * @param integer $squadId
-     * @return boolean
+     * @inheritDoc
      */
     public function adminDisbandSquad(int $teamId, int $squadId) : bool
     {
@@ -315,12 +220,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminRemovePlayerFromSquad command.
-     * Removes a Player from his Squad by providing
-     * the Player name.
-     *
-     * @param string $playerName
-     * @return boolean
+     * @inheritDoc
      */
     public function adminRemovePlayerFromSquad(string $playerName) : bool
     {
@@ -328,12 +228,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminRemovePlayerFromSquadById command.
-     * Removes a player from his Squad by providing
-     * the ingame Player id.
-     *
-     * @param integer $playerId
-     * @return boolean
+     * @inheritDoc
      */
     public function adminRemovePlayerFromSquadById(int $playerId) : bool
     {
@@ -341,13 +236,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminWarn command.
-     * Warns a Player by providing his name / steamid
-     * and a message.
-     *
-     * @param string $nameOrSteamId
-     * @param string $warnReason
-     * @return boolean
+     * @inheritDoc
      */
     public function adminWarn(string $nameOrSteamId, string $warnReason) : bool
     {
@@ -355,13 +244,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * AdminWarnById command.
-     * Warns a Player by providing his ingame Player id
-     * and a message.
-     *
-     * @param integer $playerId
-     * @param string $warnReason
-     * @return boolean
+     * @inheritDoc
      */
     public function adminWarnById(int $playerId, string $warnReason) : bool
     {
@@ -404,9 +287,7 @@ class SquadRconRunner implements ServerCommandRunner {
     }
 
     /**
-     * Disconnects the runner from any squad server instance.
-     *
-     * @return void
+     * @inheritDoc
      */
     public function disconnect() : void
     {

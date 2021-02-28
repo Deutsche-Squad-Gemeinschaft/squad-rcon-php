@@ -20,8 +20,7 @@ interface ServerCommandRunner {
      * ListSquads can be piped into it to
      * assign the Players to their Team/Squad.
      *
-     * @param array $teams
-     * @return Player[]
+     * @return string
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
     public function listPlayers() : string;
@@ -30,7 +29,7 @@ interface ServerCommandRunner {
      * ListDisconnectedPlayers command, returns an array
      * of disconnected Player instances.
      *
-     * @return Player[]
+     * @return string
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
     public function listDisconnectedPlayers() : string;
@@ -80,8 +79,8 @@ interface ServerCommandRunner {
     public function adminBanById(int $id, string $duration = '1d', string $reason = '') : bool;
 
     /**
-     * ShowCurrentMap command.
-     * Gets the current level and layer.
+     * ShowNextMap command.
+     * Gets the current and next map.
      * 
      * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException
@@ -90,7 +89,7 @@ interface ServerCommandRunner {
 
     /**
      * ShowNextMap command.
-     * Gets the next level and layer.
+     * Gets the current and next map.
      * 
      * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException
@@ -108,16 +107,16 @@ interface ServerCommandRunner {
     public function adminBroadcast(string $msg) : bool;
 
     /**
-     * ChatToAdmin command.
-     * Restarts the current match.
+     * AdminRestartMatch command.
+     * Broadcasts the given message on the server.
      *
      * @return boolean
      */
     public function adminRestartMatch() : bool;
 
     /**
-     * AdminEndMatch command.
-     * Ends the current Match.
+     * AdminRestartMatch command.
+     * Broadcasts the given message on the server.
      *
      * @return boolean
      */
@@ -134,34 +133,54 @@ interface ServerCommandRunner {
     public function adminSetMaxNumPlayers(int $slots) : bool;
 
     /**
-     * AdminSetServerPassword command.
-     * Sets the password of the server.
+     * AdminSetMaxNumPlayers command.
+     * Sets the max amount of players (public).
      *
-     * @param string $password
+     * @param int $slots How many public slots ther should be.
      * @return boolean
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
     public function adminSetServerPassword(string $password) : bool;
 
     /**
-     * AdminChangeMap command
-     * Immediately changes the current map to the given map.
-     * @param string $map
-     * @return bool
+     * AdminChangeLevel command.
+     * Change the level ( and pick a random layer on it) and travel to it immediately,
+     * 
+     * @param string $level The level to change to.
+     * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
-    public function adminChangeMap(string $map) : bool;
+    public function adminChangeLevel(string $level) : bool;
 
     /**
-     * AdminSetNextMap command.
-     * Temporarily overwrites the next map in the
-     * MapRotations, effecively changing the next map.
+     * AdminSetNextLevel command.
+     * Set the next Level ( and pick a random layer on it) to travel to after this match ends.
      * 
-     * @param string $map
-     * @return bool
+     * @param string $level The level to be set as next level.
+     * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
-    public function adminSetNextMap(string $map) : bool;
+    public function adminSetNextLevel(string $level) : bool;
+
+    /**
+     * AdminChangeLayer command.
+     * Change the layer and travel to it immediately.
+     * 
+     * @param string $layer The layer to change to.
+     * @return array
+     * @throws \DSG\SquadRCON\Exceptions\RConException
+     */
+    public function adminChangeLayer(string $layer) : bool;
+
+    /**
+     * AdminSetNextLayer command.
+     * Set the next layer to travel to after this match ends.
+     * 
+     * @param string $layer The layer to be set as next layer.
+     * @return array
+     * @throws \DSG\SquadRCON\Exceptions\RConException
+     */
+    public function adminSetNextLayer(string $layer) : bool;
 
     /**
      * AdminSlomo command.
@@ -200,7 +219,7 @@ interface ServerCommandRunner {
      * Demotes a player from the commander slot
      * by providing the name or steamid.
      *
-     * @param string $nameOrSteamId
+     * @param string $playerName
      * @return boolean
      */
     //public function adminDemoteCommander(string $nameOrSteamId) : bool;

@@ -27,7 +27,7 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
     {
         $this->assertSame([
             'level' => 'Al Basrah',
-            'layer' => 'Al Basrah AAS v1'
+            'layer' => 'Al Basrah AAS v2'
         ], $this->squadServer->showCurrentMap());
     }
 
@@ -38,7 +38,7 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
      */
     public function test_admin_set_next_map()
     {
-        $this->assertTrue($this->squadServer->adminSetNextMap('Al Basrah Insurgency v1'));
+        $this->assertTrue($this->squadServer->adminSetNextLayer('Al Basrah Insurgency v1'));
     }
 
     /**
@@ -133,7 +133,7 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
      */
     public function test_admin_change_map()
     {
-        $this->assertTrue($this->squadServer->adminChangeMap('Al Basrah AAS v1'));
+        $this->assertTrue($this->squadServer->adminChangeLayer('Al Basrah AAS v1'));
     }
 
     /**

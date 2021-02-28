@@ -371,29 +371,55 @@ class SquadServer
     }
 
     /**
-     * AdminChangeMap command
-     * Immediately changes the current map to the given map.
-     * @param string $map
-     * @return bool
+     * AdminChangeLevel command.
+     * Change the level ( and pick a random layer on it) and travel to it immediately,
+     * 
+     * @param string $level The level to change to.
+     * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
-    public function adminChangeMap(string $map) : bool
+    public function adminChangeLevel(string $level) : bool
     {
-        return $this->runner->adminChangeMap($map);
+        return $this->runner->adminChangeLevel($level);
     }
 
     /**
-     * AdminSetNextMap command.
-     * Temporarily overwrites the next map in the
-     * MapRotations, effecively changing the next map.
+     * AdminSetNextLevel command.
+     * Set the next Level ( and pick a random layer on it) to travel to after this match ends.
      * 
-     * @param string $map
-     * @return bool
+     * @param string $level The level to be set as next level.
+     * @return array
      * @throws \DSG\SquadRCON\Exceptions\RConException
      */
-    public function adminSetNextMap(string $map) : bool
+    public function adminSetNextLevel(string $level) : bool
     {
-        return $this->runner->adminSetNextMap($map);
+        return $this->runner->adminSetNextLevel($level);
+    }
+
+    /**
+     * AdminChangeLayer command.
+     * Change the layer and travel to it immediately.
+     * 
+     * @param string $layer The layer to change to.
+     * @return array
+     * @throws \DSG\SquadRCON\Exceptions\RConException
+     */
+    public function adminChangeLayer(string $layer) : bool
+    {
+        return $this->runner->adminChangeLayer($layer);
+    }
+
+    /**
+     * AdminSetNextLayer command.
+     * Set the next layer to travel to after this match ends.
+     * 
+     * @param string $layer The layer to be set as next layer.
+     * @return array
+     * @throws \DSG\SquadRCON\Exceptions\RConException
+     */
+    public function adminSetNextLayer(string $layer) : bool
+    {
+        return $this->runner->adminSetNextLayer($layer);
     }
 
     /**

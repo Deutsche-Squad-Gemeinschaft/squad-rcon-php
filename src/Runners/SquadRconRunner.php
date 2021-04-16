@@ -144,7 +144,7 @@ class SquadRconRunner implements ServerCommandRunner {
      */
     public function adminChangeLevel(string $level) : bool
     {
-        return $this->_consoleCommand('AdminChangeLevel', $level, 'Changed level to');
+        return $this->_consoleCommand('AdminChangeLevel', $level, 'Change level to');
     }
 
     /**
@@ -160,7 +160,7 @@ class SquadRconRunner implements ServerCommandRunner {
      */
     public function adminChangeLayer(string $layer) : bool
     {
-        return $this->_consoleCommand('AdminChangeLayer', $layer, 'Changed layer to');
+        return $this->_consoleCommand('AdminChangeLayer', $layer, 'Change layer to');
     }
 
     /**

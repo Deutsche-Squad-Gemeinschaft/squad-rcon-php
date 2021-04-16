@@ -2,7 +2,7 @@ name: CI
 on: [push]
 jobs:
   unit-tests:
-    runs-on: [self-hosted, ec2, squad]
+    runs-on: [self-hosted, ec2]
     steps:
     - name: Pull repository
       uses: actions/checkout@v1

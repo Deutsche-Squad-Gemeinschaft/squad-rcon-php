@@ -215,7 +215,7 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
      */
     public function test_admin_change_map()
     {
-        $this->assertTrue($this->squadServer->adminChangeLayer('Al Basrah AAS v1'));
+        $this->assertTrue($this->squadServer->adminChangeLayer('Albasrah_AAS_v1'));
     }
 
     /**
@@ -225,7 +225,7 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
      */
     public function test_admin_set_next_map()
     {
-        $this->assertTrue($this->squadServer->adminSetNextLayer('Al Basrah AAS v1'));
+        $this->assertTrue($this->squadServer->adminSetNextLayer('Albasrah_AAS_v1'));
     }
 
     /**

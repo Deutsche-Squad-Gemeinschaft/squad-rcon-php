@@ -292,8 +292,8 @@ class SquadServer
     {
         /* Initialize the output */
         $maps = [
-            'current' => null,
-            'next' => null
+            'level' => null,
+            'layer' => null
         ];
 
         /* Run the ShowNextMap Command and get response */

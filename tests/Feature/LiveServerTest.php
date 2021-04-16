@@ -32,13 +32,13 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
     }
 
     /**
-     * Verifies the set next map command does work properly
+     * Verifies the set next layer command does work properly
      * 
      * @return void
      */
-    public function test_admin_set_next_map()
+    public function test_admin_set_next_layer()
     {
-        $this->assertTrue($this->squadServer->adminSetNextLayer('Al Basrah Insurgency v1'));
+        $this->assertTrue($this->squadServer->adminSetNextLayer('Albasrah_Insurgency_v1'));
     }
 
     /**
@@ -133,7 +133,7 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
      */
     public function test_admin_change_map()
     {
-        $this->assertTrue($this->squadServer->adminChangeLayer('Al Basrah AAS v1'));
+        $this->assertTrue($this->squadServer->adminChangeLayer('Albasrah_AAS_v1'));
     }
 
     /**

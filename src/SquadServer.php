@@ -96,7 +96,7 @@ class SquadServer
 
                 /* Set as current team */
                 $currentTeam = $team;
-            } else if (preg_match('/^ID: (\d{1,}) \| Name: (.*?) \| Size: (\d) \| Locked: (True|False) | Creator Name: (.*) | Creator Steam ID: (\d{17})/', $lineSquad, $matches) > 0) {
+            } else if (preg_match('/^ID: (\d{1,}) \| Name: (.*?) \| Size: (\d) \| Locked: (True|False) \| Creator Name: (.*) \| Creator Steam ID: (\d{17})/', $lineSquad, $matches) > 0) {
                 /* Initialize a new Squad */
                 $squad = new Squad(intval($matches[1]), $matches[2], intval($matches[3]), $matches[4] === 'True', $matches[6], $currentTeam);
                 

@@ -98,36 +98,20 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
                 foreach ($team->getSquads() as $squad) {
                     if ($squad->getId() === 1) {
                         $this->assertSame('HELI', $squad->getName());
-                        $this->assertSame('[1JGKP]StryexX', $squad->getCreator()->getName());
-                        $this->assertSame('76561198429663037', $squad->getCreator()->getSteamId());
                     } else if ($squad->getId() === 2) {
                         $this->assertSame('HELI', $squad->getName());
-                        $this->assertSame('[BOS]mobb', $squad->getCreator()->getName());
-                        $this->assertSame('76561197990281056', $squad->getCreator()->getSteamId());
                     } else if ($squad->getId() === 3) {
                         $this->assertSame('CMD Squad', $squad->getName());
-                        $this->assertSame('[1JGKP]Bud-Muecke (YT)', $squad->getCreator()->getName());
-                        $this->assertSame('76561198202943394', $squad->getCreator()->getSteamId());
                     } else if ($squad->getId() === 4) {
                         $this->assertSame('MBT', $squad->getName());
-                        $this->assertSame('Flexルーシー', $squad->getCreator()->getName());
-                        $this->assertSame('76561198159379914', $squad->getCreator()->getSteamId());
                     } else if ($squad->getId() === 5) {
                         $this->assertSame('BRADLEY', $squad->getName());
-                        $this->assertSame('Jim2509', $squad->getCreator()->getName());
-                        $this->assertSame('76561198102527401', $squad->getCreator()->getSteamId());
                     } else if ($squad->getId() === 6) {
                         $this->assertSame('STRYKER', $squad->getName());
-                        $this->assertSame('Jannik', $squad->getCreator()->getName());
-                        $this->assertSame('76561198068361421', $squad->getCreator()->getSteamId());
                     } else if ($squad->getId() === 7) {
                         $this->assertSame('BOS SACHEN MACHEN', $squad->getName());
-                        $this->assertSame('Borg', $squad->getCreator()->getName());
-                        $this->assertSame('76561198349811676', $squad->getCreator()->getSteamId());
                     } else if ($squad->getId() === 8) {
                         $this->assertSame('RUNNING SQUAD', $squad->getName());
-                        $this->assertSame('HugoBadAss92_DEU', $squad->getCreator()->getName());
-                        $this->assertSame('76561198450388317', $squad->getCreator()->getSteamId());
                     }
                 }
             } else {
@@ -181,6 +165,8 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
                         $this->assertSame(9, $squad->getSize());
                         $this->assertFalse(false, $squad->isLocked());
                         $this->assertSame($team->getId(), $squad->getTeam()->getId());
+                        $this->assertSame('[1JGKP]Bud-Muecke (YT)', $squad->getCreator()->getName());
+                        $this->assertSame('76561198202943394', $squad->getCreator()->getSteamId());
 
                         $p = null;
                         /** @var \DSG\SquadRCON\Data\Player $player */

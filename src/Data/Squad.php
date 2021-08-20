@@ -123,7 +123,7 @@ class Squad
             }
         }
         
-        throw new \Exception('Squad creator could not be found! Squad ID: ' . $this->getId() +. ', Creator ID: ' . $this->creator);
+        throw new \Exception('Squad creator could not be found! Squad ID: ' . $this->getId() . ', Creator ID: ' . $this->creator);
     }
 
     /**

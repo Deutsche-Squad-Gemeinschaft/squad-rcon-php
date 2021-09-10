@@ -47,15 +47,29 @@ class SquadServer
 
     /**
      * @return Team[]
-     * @throws \DSG\SquadRCON\Exceptions\RConException
+     * @throws \DSG\SquadRCON\Exceptions\RConException|\Exception
      */
-    public function serverPopulation() : Population
+    public function serverPopulation(int $maxTries = 3) : Population
     {
-        /* Get the current Teams and their Squads */
-        $population = new Population($this->listSquads());
+        $try = 0;
+        
+        /* Make sure we have a Population object that is in sync, repeat otherwise */
+        while (is_null($population) || !$population->isSynced()) {
+            /* Do not repeat if max tries are exhausted */
+            if ($try >= $maxTries) {
+                throw new \Exception('Could not sync population object. Exhausted max tries of ' . $maxTries);
+            }
+            
+            /* Get the current Teams and their Squads */
+            $population = new Population($this->listSquads());
 
-        /* Get the currently connected players, feed listSquads output to reference Teams/Squads */
-        $this->listPlayers($population);
+            /* Get the currently connected players, feed listSquads output to reference Teams/Squads */
+            $this->listPlayers($population);
+            
+            /* Use up another try */
+            ++$try;
+        }
+        
 
         return $population;
     }

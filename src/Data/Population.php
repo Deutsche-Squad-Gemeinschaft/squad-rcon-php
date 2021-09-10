@@ -89,4 +89,22 @@ class Population
         /* Return null in case nothing has been found */
         return null;
     }
+    /**
+     * Determines if data provided by ListPlayers is in
+     * sync with data provided by ListSquads.
+     *
+     * @return bool
+     */
+    public function isSynced() : bool
+    {
+        foreach ($this->getTeams() as $team) {
+            foreach ($team->getSquads() as $squad) {
+                if (is_null($squad->getCreator())) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
 }

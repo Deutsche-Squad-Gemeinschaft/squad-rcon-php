@@ -46,12 +46,20 @@ class SquadServer
     }
 
     /**
+     * Retrieve and create a server Population object. This will
+     * contain Squads and Players properly structured and linked.
+     * In cases players join/leave between booth calls, the commands
+     * will be retried until the retrieved data is in sync or $maxTries 
+     * is exhausted.
+     *
      * @return Team[]
      * @throws \DSG\SquadRCON\Exceptions\RConException|\Exception
      */
     public function serverPopulation(int $maxTries = 3) : Population
     {
+        /* Initialize some runtime variables required to keep track of what we are doing here, TODO: needs refactoring */
         $try = 0;
+        $population = null;
         
         /* Make sure we have a Population object that is in sync, repeat otherwise */
         while (is_null($population) || !$population->isSynced()) {

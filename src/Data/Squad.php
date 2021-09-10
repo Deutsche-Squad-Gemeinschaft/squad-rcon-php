@@ -112,10 +112,9 @@ class Squad
     /**
      * Get the Player that created this Squad instance.
      * 
-     * @return Player
-     * @throws \Exception If the creator can not be found
+     * @return Player|null
      */
-    public function getCreator() : Player
+    public function getCreator() : ?Player
     {
         foreach ($this->players as $player) {
             if ($player->getSteamId() === $this->creator) {
@@ -123,7 +122,7 @@ class Squad
             }
         }
         
-        throw new \Exception('Squad creator could not be found! Squad ID: ' . $this->getId() . ', Creator ID: ' . $this->creator);
+        return null;
     }
 
     /**

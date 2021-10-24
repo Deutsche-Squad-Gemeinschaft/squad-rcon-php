@@ -32,21 +32,27 @@ class Squad
     /**
      * @var string
      */
-    private string $creator;
+    private string $creatorName;
+    
+    /**
+     * @var string
+     */
+    private string $creatorSteamId;
 
     /**
      * @var Player[]
      */
     private array $players = [];
 
-    function __construct(int $id, string $name, int $size, bool $locked, Team $team, string $creator)
+    function __construct(int $id, string $name, int $size, bool $locked, Team $team, string $creatorName, string $creatorSteamId)
     {
         $this->id      = $id;
         $this->name    = $name;
         $this->size    = $size;
         $this->locked  = $locked;
         $this->team    = $team;
-        $this->creator = $creator;
+        $this->$creatorName = $creatorName;
+        $this->$creatorSteamId = $creatorSteamId;
     }
 
     /**
@@ -110,13 +116,23 @@ class Squad
     }
     
     /**
-     * Get the SteamId64 of the player who created this Squad.
+     * Get the name of the player who created this Squad.
+     * 
+     * @return string
+     */
+    public function getCreatorName() : string
+    {
+        return $this->creatorName;
+    }
+    
+    /**
+     * Get the steamId64 of the player who created this Squad.
      * 
      * @return string
      */
     public function getCreatorSteamID() : string
     {
-        return $this->creator;
+        return $this->creatorSteamId;
     }
 
     /**

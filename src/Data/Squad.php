@@ -110,19 +110,13 @@ class Squad
     }
     
     /**
-     * Get the Player that created this Squad instance.
+     * Get the SteamId64 of the player who created this Squad.
      * 
-     * @return Player|null
+     * @return string
      */
-    public function getCreator() : ?Player
+    public function getCreatorSteamID() : string
     {
-        foreach ($this->players as $player) {
-            if ($player->getSteamId() === $this->creator) {
-                return $player;
-            }
-        }
-        
-        return null;
+        return $this->creator;
     }
 
     /**

@@ -105,6 +105,25 @@ $population = $server->serverPopulation();
 /** @var Team[] */
 $teams = $population->getTeams();
 
+foreach ($teams as $team) {
+    $name = $team->getName();
+    
+    foreach ($team->getSquads() as $squad) {
+        $creatorName = $squad->getCreatorName();
+        $creatorSteamId = $squad->getCreatorSteamId();
+        
+        foreach ($squad->getPlayers() as $player) {
+            $name = $player->getName();
+            $steamId = $player->getSteamId();
+        }
+    }
+    
+    foreach ($team->getPlayers() as $unassigned) {
+        $name = $player->getName();
+        $steamId = $player->getSteamId();
+    }
+}
+
 // or
 
 /** @var Player[] */

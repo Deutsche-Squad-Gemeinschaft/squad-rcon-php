@@ -52,33 +52,16 @@ class SquadServer
      * will be retried until the retrieved data is in sync or $maxTries 
      * is exhausted.
      *
-     * @return Team[]
      * @throws \DSG\SquadRCON\Exceptions\RConException|\Exception
      */
-    public function serverPopulation(int $maxTries = 3) : Population
+    public function serverPopulation() : Population
     {
-        /* Initialize some runtime variables required to keep track of what we are doing here, TODO: needs refactoring */
-        $try = 0;
-        $population = null;
+        /* Get the current Teams and their Squads */
+        $population = new Population($this->listSquads());
         
-        /* Make sure we have a Population object that is in sync, repeat otherwise */
-        while (is_null($population) || !$population->isSynced()) {
-            /* Do not repeat if max tries are exhausted */
-            if ($try >= $maxTries) {
-                throw new \Exception('Could not sync population object. Exhausted max tries of ' . $maxTries);
-            }
-            
-            /* Get the current Teams and their Squads */
-            $population = new Population($this->listSquads());
-
-            /* Get the currently connected players, feed listSquads output to reference Teams/Squads */
-            $this->listPlayers($population);
-            
-            /* Use up another try */
-            ++$try;
-        }
+        /* Get the currently connected players, feed listSquads output to reference Teams/Squads */
+        $this->listPlayers($population);
         
-
         return $population;
     }
 
@@ -120,7 +103,7 @@ class SquadServer
                 $currentTeam = $team;
             } else if (preg_match('/^ID: (\d{1,}) \| Name: (.*?) \| Size: (\d) \| Locked: (True|False) \| Creator Name: (.*) \| Creator Steam ID: (\d{17})/', $lineSquad, $matches) > 0) {
                 /* Initialize a new Squad */
-                $squad = new Squad(intval($matches[1]), $matches[2], intval($matches[3]), $matches[4] === 'True', $currentTeam, $matches[6]);
+                $squad = new Squad(intval($matches[1]), $matches[2], intval($matches[3]), $matches[4] === 'True', $currentTeam, $matches[5], $matches[6]);
                 
                 /* Reference Team */
                 $currentTeam->addSquad($squad);

@@ -61,7 +61,7 @@ class Player
      */
     public function getRole(): ?string
     {
-        return $this->kit;
+        return $this->role;
     }
 
     /**

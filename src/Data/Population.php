@@ -71,9 +71,6 @@ class Population
      * Searches and returns the Player with the 
      * given Steam 64 Id. Returns null in case no 
      * Player has been found.
-     *
-     * @param string $steamId64
-     * @return Player|null
      */
     public function getPlayerBySteamId(string $steamId64) : ?Player
     {

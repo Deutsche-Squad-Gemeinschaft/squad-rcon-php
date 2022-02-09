@@ -4,39 +4,18 @@ namespace DSG\SquadRCON\Data;
 
 class Squad
 {
-    /**
-     * @var int
-     */
     private int $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var int
-     */
     private int $size;
 
-    /**
-     * @var bool
-     */
     private bool $locked;
 
-    /**
-     * @var Team
-     */
     private Team $team;
     
-    /**
-     * @var string
-     */
     private string $creatorName;
     
-    /**
-     * @var string
-     */
     private string $creatorSteamId;
 
     /**
@@ -57,8 +36,6 @@ class Squad
 
     /**
      * Get the ID of this Squad instance.
-     * 
-     * @return int
      */
     public function getId() : int
     {
@@ -67,8 +44,6 @@ class Squad
 
     /**
      * Get the name of this Squad instance.
-     * 
-     * @return string
      */
     public function getName() : string
     {
@@ -77,8 +52,6 @@ class Squad
 
     /**
      * Get the Size of this Squad instance.
-     * 
-     * @return int
      */
     public function getSize() : int
     {
@@ -87,8 +60,6 @@ class Squad
 
     /**
      * Get the Lock status of this Squad instance.
-     * 
-     * @return bool
      */
     public function isLocked() : bool
     {
@@ -117,8 +88,6 @@ class Squad
     
     /**
      * Get the name of the player who created this Squad.
-     * 
-     * @return string
      */
     public function getCreatorName() : string
     {
@@ -127,8 +96,6 @@ class Squad
     
     /**
      * Get the steamId64 of the player who created this Squad.
-     * 
-     * @return string
      */
     public function getCreatorSteamID() : string
     {
@@ -136,11 +103,22 @@ class Squad
     }
 
     /**
+     * Get the Player that is the Leader of this Squad
+     */
+    public function getLeader() : ?Player
+    {
+        foreach ($this->players as $player) {
+            if ($player->isLeader()) {
+                return $player;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Adds an Player to this Squad instance.
      * Also References the Squad on the Player.
-     *
-     * @param Player $player
-     * @return void
      */
     public function addPlayer(Player $player) : void
     {

@@ -7,29 +7,21 @@ class ServerConnectionInfo {
 
     /**
      * Host of the Server.
-     * 
-     * @var string
      */
     public string $host;
 
     /**
      * (RCon) Port of the Server.
-     * 
-     * @var int
      */
     public int $port;
 
     /**
      * (RCon) Password of the Server.
-     * 
-     * @var string
      */
     public string $password;
 
     /**
      * Timeout for the RCon connection.
-     * 
-     * @var int
      */
     public int $timeout;
 

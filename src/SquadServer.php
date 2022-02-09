@@ -140,7 +140,7 @@ class SquadServer
             $matches = [];
             if (preg_match('/^ID: (\d{1,}) \| SteamID: (\d{17}) \| Name: (.*?) \| Team ID: (1|2|N\/A) \| Squad ID: (\d{1,}|N\/A) \| Is Leader: (True|False) \| Role: ([A-Za-z0-9_]*)$/', $line, $matches)) {
                 /* Initialize new Player instance */
-                $player = new Player(intval($matches[1]), $matches[2], $matches[3]);
+                $player = new Player(intval($matches[1]), $matches[2], $matches[3], $matches[6] === 'True', $matches[5]);
 
                 /* Set Team and Squad references if ListSquads output is provided */
                 if ($population && $population->hasTeams() && $matches[4] !== 'N/A' && $population->getTeam($matches[4])) {
@@ -191,7 +191,7 @@ class SquadServer
             $matches = [];
             if (preg_match('/^ID: (\d{1,}) \| SteamID: (\d{17}) \| Since Disconnect: (\d{2,})m.(\d{2})s \| Name: (.*?)$/', $line, $matches)) {
                 /* Initialize new Player instance */
-                $player = new Player(intval($matches[1]), $matches[2], $matches[5]);
+                $player = new Player(intval($matches[1]), $matches[2], $matches[5], false, null);
 
                 /* Set the disconnected since time */
                 $player->setDisconnectedSince(intval($matches[3]) * 60 + intval($matches[4]));

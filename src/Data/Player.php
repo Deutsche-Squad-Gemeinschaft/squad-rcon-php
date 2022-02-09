@@ -4,47 +4,36 @@ namespace DSG\SquadRCON\Data;
 
 class Player
 {
-    /**
-     * @var int
-     */
     private int $id;
 
-    /**
-     * @var string
-     */
     private string $steamId;
 
-    /**
-     * @var string
-     */
     private string $name;
 
-    /**
-     * @var Team
-     */
     private ?Team $team = null;
 
-    /**
-     * @var Squad
-     */
     private ?Squad $squad = null;
+
+    private bool $leader = false;
+    
+    private ?string $role = null;
 
     /**
      * @var int|null
      */
     private ?int $disconnectedSince = null;
 
-    function __construct(int $id, string $steamId, string $name)
+    function __construct(int $id, string $steamId, string $name, bool $leader = false, ?string $role = null)
     {
         $this->id       = $id;
         $this->steamId  = $steamId;
         $this->name     = $name;
+        $this->leader   = $leader;
+        $this->role     = $role;
     }
 
     /**
      * Get the ID of this Player instance.
-     * 
-     * @return int
      */
     public function getId() : int
     {
@@ -53,8 +42,6 @@ class Player
 
     /**
      * Get the SteamId of this Player instance.
-     * 
-     * @return string
      */
     public function getSteamId() : string
     {
@@ -63,8 +50,6 @@ class Player
 
     /**
      * Get the name of this Player instance.
-     * 
-     * @return string
      */
     public function getName() : string
     {
@@ -72,9 +57,15 @@ class Player
     }
 
     /**
+     * Get the name of the Role the Player has currently selected.
+     */
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    /**
      * Get the Team this player instance is assigned to.
-     * 
-     * @return Team|null
      */
     public function getTeam() : ?Team
     {
@@ -83,9 +74,6 @@ class Player
 
     /**
      * Sets the Team of this Player instance
-     *
-     * @param Team $team
-     * @return void
      */
     public function setTeam(Team $team) : void
     {
@@ -94,8 +82,6 @@ class Player
 
     /**
      * Get the Squad this Player instance is assigned to.
-     * 
-     * @return Squad|null
      */
     public function getSquad() : ?Squad
     {
@@ -104,9 +90,6 @@ class Player
 
     /**
      * Sets the Squad of this Player instance
-     *
-     * @param Squad $squad
-     * @return void
      */
     public function setSquad(Squad $squad) : void
     {
@@ -114,9 +97,15 @@ class Player
     }
 
     /**
+     * Determines if this Player is the leader of the Squad he is currently part of.
+     */
+    public function isLeader(): bool
+    {
+        return $this->leader;
+    }
+
+    /**
      * Gets the disconnected since attribute of this Player instance.
-     *
-     * @return int|null
      */
     public function getDisconnectedSince() : ?int
     {
@@ -127,7 +116,6 @@ class Player
      * Sets the disconnected since attribute of this Player instance.
      *
      * @param int $disconnectedSince Seconds since disconnect
-     * @return void
      */
     public function setDisconnectedSince(int $disconnectedSince) : void
     {

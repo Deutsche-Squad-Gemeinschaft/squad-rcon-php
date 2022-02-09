@@ -4,14 +4,8 @@ namespace DSG\SquadRCON\Data;
 
 class Team
 {
-    /**
-     * @var int
-     */
     private int $id;
 
-    /**
-     * @var string
-     */
     private string $name;
 
     /**
@@ -32,8 +26,6 @@ class Team
 
     /**
      * Get the ID of this Team instance.
-     * 
-     * @return int
      */
     public function getId() : int
     {
@@ -42,8 +34,6 @@ class Team
 
     /**
      * Get the Name of this Team instance.
-     * 
-     * @return string
      */
     public function getName() : string
     {
@@ -62,9 +52,6 @@ class Team
 
     /**
      * Adds an Squad to this Team instance.
-     *
-     * @param Squad $squad
-     * @return void
      */
     public function addSquad(Squad $squad) : void
     {
@@ -83,9 +70,6 @@ class Team
 
     /**
      * Adds an Player to this Team instance.
-     *
-     * @param Player $player
-     * @return void
      */
     public function addPlayer(Player $player) : void
     {

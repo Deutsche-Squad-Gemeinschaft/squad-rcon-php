@@ -167,12 +167,14 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
                         $this->assertSame($team->getId(), $squad->getTeam()->getId());
                         $this->assertSame('[1JGKP]Bud-Muecke (YT)', $squad->getCreatorName());
                         $this->assertSame('76561198202943394', $squad->getCreatorSteamID());
+                        $this->assertSame('76561198202943394', $squad->getLeader()->getId());
                         
                         $p = null;
                         /** @var \DSG\SquadRCON\Data\Player $player */
                         foreach ($squad->getPlayers() as $player) {
                             if ($player->getId() === 53) {
                                 $this->assertSame('76561198202943394', $player->getSteamId());
+                                $this->assertTrue($player->isLeader());
                                 $this->assertSame('[1JGKP]Bud-Muecke (YT)', $player->getName());
                                 $this->assertSame($squad->getId(), $player->getSquad()->getId());
                                 $p = $player;

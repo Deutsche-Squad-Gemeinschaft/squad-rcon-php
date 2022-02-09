@@ -10,20 +10,20 @@ class Player
 
     private string $name;
 
-    private string $role;
-
     private ?Team $team = null;
 
     private ?Squad $squad = null;
 
     private bool $leader = false;
+    
+    private ?string $role = null;
 
     /**
      * @var int|null
      */
     private ?int $disconnectedSince = null;
 
-    function __construct(int $id, string $steamId, string $name, bool $leader, string $role)
+    function __construct(int $id, string $steamId, string $name, bool $leader = false, ?string $role = null)
     {
         $this->id       = $id;
         $this->steamId  = $steamId;
@@ -59,7 +59,7 @@ class Player
     /**
      * Get the name of the Role the Player has currently selected.
      */
-    public function getRole(): string
+    public function getRole(): ?string
     {
         return $this->kit;
     }

@@ -138,7 +138,7 @@ class SquadServer
         foreach (explode("\n", $response) as $line) {
             /* Initialize an empty array and try to get info form line */
             $matches = [];
-            if (preg_match('/^ID: (\d{1,}) \| SteamID: (\d{17}) \| Name: (.*?) \| Team ID: (1|2|N\/A) \| Squad ID: (\d{1,}|N\/A)/', $line, $matches)) {
+            if (preg_match('/^ID: (\d{1,}) \| SteamID: (\d{17}) \| Name: (.*?) \| Team ID: (1|2|N\/A) \| Squad ID: (\d{1,}|N\/A) \| Is Leader: (True|False) \| Role: ([A-Za-z0-9_]*)$/', $line, $matches)) {
                 /* Initialize new Player instance */
                 $player = new Player(intval($matches[1]), $matches[2], $matches[3]);
 

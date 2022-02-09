@@ -82,7 +82,7 @@ class SquadServer
         /** @var Squad[] $squads */
         $squads = [];
 
-        /* Get the SquadList from the Server */
+        /** @var string Get the SquadList from the Server */
         $response = $this->runner->listSquads();
 
         /** @var Team The current team */
@@ -140,7 +140,7 @@ class SquadServer
             $matches = [];
             if (preg_match('/^ID: (\d{1,}) \| SteamID: (\d{17}) \| Name: (.*?) \| Team ID: (1|2|N\/A) \| Squad ID: (\d{1,}|N\/A) \| Is Leader: (True|False) \| Role: ([A-Za-z0-9_]*)$/', $line, $matches)) {
                 /* Initialize new Player instance */
-                $player = new Player(intval($matches[1]), $matches[2], $matches[3], $matches[6] === 'True', $matches[5]);
+                $player = new Player(intval($matches[1]), $matches[2], $matches[3], $matches[6] === 'True', $matches[7]);
 
                 /* Set Team and Squad references if ListSquads output is provided */
                 if ($population && $population->hasTeams() && $matches[4] !== 'N/A' && $population->getTeam($matches[4])) {

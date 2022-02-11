@@ -26,8 +26,8 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
     public function test_current_map()
     {
         $this->assertSame([
-            'level' => 'Al Basrah',
-            'layer' => 'Al Basrah AAS v1'
+            'level' => 'Anvil',
+            'layer' => 'Anvil AAS v1'
         ], $this->squadServer->showCurrentMap());
     }
 

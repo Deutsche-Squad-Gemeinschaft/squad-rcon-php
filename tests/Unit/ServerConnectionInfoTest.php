@@ -2,7 +2,7 @@
 
 namespace DSG\SquadRCON\Tests\Unit;
 
-use DSG\SquadRCON\Data\ServerConnectionInfo;
+use DSG\SquadRCON\Data\Objects\ServerConnectionInfo;
 
 class ServerConnectionInfoTest extends \DSG\SquadRCON\Tests\TestCase {
     /**
@@ -12,7 +12,11 @@ class ServerConnectionInfoTest extends \DSG\SquadRCON\Tests\TestCase {
      */
     public function test_server_connection_info_can_be_initialized()
     {
-        $info = new ServerConnectionInfo('localhost', 12345, 'secret');
+        $info = new ServerConnectionInfo(
+            host: 'localhost', 
+            port: 12345, 
+            password: 'secret'
+        );
         
         $this->assertTrue((bool)$info);
     }
@@ -24,8 +28,13 @@ class ServerConnectionInfoTest extends \DSG\SquadRCON\Tests\TestCase {
      */
     public function test_server_connection_info_timeout_being_validated()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\Spatie\DataTransferObject\Exceptions\ValidationException::class);
         
-        new ServerConnectionInfo('localhost', 12345, 'secret', 0);
+        new ServerConnectionInfo(
+            host: 'localhost', 
+            port: 12345, 
+            password: 'secret', 
+            timeout: 0
+        );
     }
 }

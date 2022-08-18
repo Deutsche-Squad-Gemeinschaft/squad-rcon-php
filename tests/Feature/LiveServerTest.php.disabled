@@ -2,7 +2,7 @@
 
 namespace DSG\SquadRCON\Tests\Feature;
 
-use DSG\SquadRCON\Data\ServerConnectionInfo;
+use DSG\SquadRCON\Data\Objects\ServerConnectionInfo;
 use DSG\SquadRCON\SquadServer;
 
 class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
@@ -15,7 +15,11 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
     {
         parent::setUp();
 
-        $this->squadServer = new SquadServer(new ServerConnectionInfo('172.17.0.2', 21114, 'secret'));
+        $this->squadServer = new SquadServer(new ServerConnectionInfo(
+            host: '172.17.0.2',
+            port: 21114, 
+            password: 'secret'
+        ));
     }
 
     /**
@@ -88,7 +92,7 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
         $teams = $this->squadServer->listSquads();
 
         foreach ($teams as $team) {
-            $this->assertSame(0, count($team->getSquads()));
+            $this->assertSame(0, count($team->squads));
         }
     }
 
@@ -104,9 +108,9 @@ class LiveServerTest extends \DSG\SquadRCON\Tests\TestCase {
         $squadCount = 0;
         $playerCount = 0;
         foreach ($teams as $team) {
-            $squadCount += count($team->getSquads());
+            $squadCount += count($team->squads);
             $teamPlayerCount = count($team->getPlayers());
-            foreach ($team->getSquads() as $squad) {
+            foreach ($team->squads as $squad) {
                 $teamPlayerCount += count($squad->getPlayers());
             }
             $playerCount += $teamPlayerCount;

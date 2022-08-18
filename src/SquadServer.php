@@ -3,11 +3,11 @@
 namespace DSG\SquadRCON;
 
 use DSG\SquadRCON\Contracts\ServerCommandRunner;
-use DSG\SquadRCON\Data\Team;
-use DSG\SquadRCON\Data\Squad;
-use DSG\SquadRCON\Data\Player;
-use DSG\SquadRCON\Data\Population;
-use DSG\SquadRCON\Data\ServerConnectionInfo;
+use DSG\SquadRCON\Data\Objects\Team;
+use DSG\SquadRCON\Data\Objects\Squad;
+use DSG\SquadRCON\Data\Objects\Player;
+use DSG\SquadRCON\Data\Objects\Population;
+use DSG\SquadRCON\Data\Objects\ServerConnectionInfo;
 use DSG\SquadRCON\Runners\SquadRconRunner;
 
 class SquadServer
@@ -57,7 +57,7 @@ class SquadServer
     public function serverPopulation() : Population
     {
         /* Get the current Teams and their Squads */
-        $population = new Population($this->listSquads());
+        $population = new Population(teams: $this->listSquads());
         
         /* Get the currently connected players, feed listSquads output to reference Teams/Squads */
         $this->listPlayers($population);
@@ -79,9 +79,6 @@ class SquadServer
         /** @var Team[] $teams */
         $teams = [];
 
-        /** @var Squad[] $squads */
-        $squads = [];
-
         /** @var string Get the SquadList from the Server */
         $response = $this->runner->listSquads();
 
@@ -91,25 +88,26 @@ class SquadServer
             $matches = [];
             if (preg_match('/^Team ID: ([1|2]) \((.*)\)/', $lineSquad, $matches) > 0) {
                 /* Initialize a new Team */
-                $team = new Team(intval($matches[1]), $matches[2]);
+                $team = new Team(id: intval($matches[1]), name: $matches[2]);
 
                 /* Add to the lookup */
-                $teams[$team->getId()] = $team;
-                
-                /* Initialize squad lookup array */
-                $squads[$team->getId()] = [];
+                $teams[$team->id] = $team;
 
                 /* Set as current team */
                 $currentTeam = $team;
             } else if (preg_match('/^ID: (\d{1,}) \| Name: (.*?) \| Size: (\d) \| Locked: (True|False) \| Creator Name: (.*) \| Creator Steam ID: (\d{17})/', $lineSquad, $matches) > 0) {
                 /* Initialize a new Squad */
-                $squad = new Squad(intval($matches[1]), $matches[2], intval($matches[3]), $matches[4] === 'True', $currentTeam, $matches[5], $matches[6]);
+                $squad = new Squad(
+                    id: intval($matches[1]), 
+                    name: $matches[2], 
+                    size: intval($matches[3]), 
+                    locked: $matches[4] === 'True', 
+                    creatorName: $matches[5], 
+                    creatorSteamId: $matches[6]
+                );
                 
                 /* Reference Team */
-                $currentTeam->addSquad($squad);
-
-                /* Add to the squads lookup */
-                $squads[$currentTeam->getId()][$squad->getId()] = $squad;
+                $currentTeam->squads[] = $squad;
             }
         }
 
@@ -140,22 +138,28 @@ class SquadServer
             $matches = [];
             if (preg_match('/^ID: (\d{1,}) \| SteamID: (\d{17}) \| Name: (.*?) \| Team ID: (1|2|N\/A) \| Squad ID: (\d{1,}|N\/A) \| Is Leader: (True|False) \| Role: ([A-Za-z0-9_]*)\b/', $line, $matches)) {
                 /* Initialize new Player instance */
-                $player = new Player(intval($matches[1]), $matches[2], $matches[3], $matches[6] === 'True', $matches[7]);
+                $player = new Player(
+                    id: intval($matches[1]), 
+                    steamId: $matches[2], 
+                    name: $matches[3], 
+                    leader: $matches[6] === 'True', 
+                    role: $matches[7]
+                );
 
                 /* Set Team and Squad references if ListSquads output is provided */
-                if ($population && $population->hasTeams() && $matches[4] !== 'N/A' && $population->getTeam($matches[4])) {
+                if ($population && count($population->teams) && $matches[4] !== 'N/A' && $population->teams[$matches[4]]) {
                     /* Get the Team */
-                    $player->setTeam($population->getTeam($matches[4]));
+                    $player->team = $population->teams[$matches[4]];
 
-                    if (count($player->getTeam()->getSquads()) && $matches[5] !== 'N/A' && array_key_exists($matches[5], $player->getTeam()->getSquads())) {
+                    if (count($player->team->squads) && $matches[5] !== 'N/A' && array_key_exists($matches[5], $player->team->squads)) {
                         /* Get the Squad */
-                        $squad = $player->getTeam()->getSquads()[$matches[5]];
+                        $squad = $player->team->squads[$matches[5]];
 
                         /* Add the Player to the Squad */
-                        $squad->addPlayer($player);
+                        $squad->players[] = $player;
                     } else {
                         /* Add as unassigned Player to the Team instance */
-                        $player->getTeam()->addPlayer($player);
+                        $player->team->players[] = $player;
                     }
                 }
 
@@ -191,10 +195,17 @@ class SquadServer
             $matches = [];
             if (preg_match('/^ID: (\d{1,}) \| SteamID: (\d{17}) \| Since Disconnect: (\d{2,})m.(\d{2})s \| Name: (.*?)\b/', $line, $matches)) {
                 /* Initialize new Player instance */
-                $player = new Player(intval($matches[1]), $matches[2], $matches[5], false, null);
+                $player = new Player(
+                    id: intval($matches[1]), 
+                    steamId: $matches[2], 
+                    disconnectedSince: $matches[3],
+                    name: $matches[4],
+                    leader: false, 
+                    role: null
+                );
 
                 /* Set the disconnected since time */
-                $player->setDisconnectedSince(intval($matches[3]) * 60 + intval($matches[4]));
+                $player->disconnectedSince = intval($matches[3]) * 60 + intval($matches[4]);
 
                 /* Add to the output */
                 $players[] = $player;

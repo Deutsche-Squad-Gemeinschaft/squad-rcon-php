@@ -2,7 +2,7 @@
 
 namespace DSG\SquadRCON\Tests\Feature;
 
-use DSG\SquadRCON\Data\ServerConnectionInfo;
+use DSG\SquadRCON\Data\Objects\ServerConnectionInfo;
 use DSG\SquadRCON\SquadServer;
 use DSG\SquadRCON\Tests\Runners\TestingCommandRunner;
 
@@ -16,7 +16,11 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
     {
         parent::setUp();
 
-        $this->squadServer = new SquadServer(new ServerConnectionInfo('', 0, ''), new TestingCommandRunner());
+        $this->squadServer = new SquadServer(new ServerConnectionInfo(
+            host: '', 
+            port: 0, 
+            password: ''
+        ), new TestingCommandRunner());
     }
 
     /**
@@ -69,12 +73,12 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
         $this->assertCount(3, $playerList);
 
         foreach ($playerList as $player) {
-            if ($player->getId() === 88) {
-                $this->assertSame(195, $player->getDisconnectedSince());
-            } else if ($player->getId() === 84) {
-                $this->assertSame(108, $player->getDisconnectedSince());
-            } else if ($player->getId() === 42) {
-                $this->assertSame(3, $player->getDisconnectedSince());
+            if ($player->id === 88) {
+                $this->assertSame(195, $player->disconnectedSince);
+            } else if ($player->id === 84) {
+                $this->assertSame(108, $player->disconnectedSince);
+            } else if ($player->id === 42) {
+                $this->assertSame(3, $player->disconnectedSince);
             }
         }
     }
@@ -91,35 +95,35 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
         $squadCount = 0;
 
         foreach ($teams as $team) {
-            if ($team->getId() === 1) {
-                $this->assertSame('United States Army', $team->getName());
-                $this->assertCount(8, $team->getSquads());
+            if ($team->id === 1) {
+                $this->assertSame('United States Army', $team->name);
+                $this->assertCount(8, $team->squads);
 
-                foreach ($team->getSquads() as $squad) {
-                    if ($squad->getId() === 1) {
-                        $this->assertSame('HELI', $squad->getName());
-                    } else if ($squad->getId() === 2) {
-                        $this->assertSame('HELI', $squad->getName());
-                    } else if ($squad->getId() === 3) {
-                        $this->assertSame('CMD Squad', $squad->getName());
-                    } else if ($squad->getId() === 4) {
-                        $this->assertSame('MBT', $squad->getName());
-                    } else if ($squad->getId() === 5) {
-                        $this->assertSame('BRADLEY', $squad->getName());
-                    } else if ($squad->getId() === 6) {
-                        $this->assertSame('STRYKER', $squad->getName());
-                    } else if ($squad->getId() === 7) {
-                        $this->assertSame('BOS SACHEN MACHEN', $squad->getName());
-                    } else if ($squad->getId() === 8) {
-                        $this->assertSame('RUNNING SQUAD', $squad->getName());
+                foreach ($team->squads as $squad) {
+                    if ($squad->id === 1) {
+                        $this->assertSame('HELI', $squad->name);
+                    } else if ($squad->id === 2) {
+                        $this->assertSame('HELI', $squad->name);
+                    } else if ($squad->id === 3) {
+                        $this->assertSame('CMD Squad', $squad->name);
+                    } else if ($squad->id === 4) {
+                        $this->assertSame('MBT', $squad->name);
+                    } else if ($squad->id === 5) {
+                        $this->assertSame('BRADLEY', $squad->name);
+                    } else if ($squad->id === 6) {
+                        $this->assertSame('STRYKER', $squad->name);
+                    } else if ($squad->id === 7) {
+                        $this->assertSame('BOS SACHEN MACHEN', $squad->name);
+                    } else if ($squad->id === 8) {
+                        $this->assertSame('RUNNING SQUAD', $squad->name);
                     }
                 }
             } else {
-                $this->assertSame('Russian Ground Forces', $team->getName());
-                $this->assertCount(10, $team->getSquads());
+                $this->assertSame('Russian Ground Forces', $team->name);
+                $this->assertCount(10, $team->squads);
             }
 
-            $squadCount += count($team->getSquads());
+            $squadCount += count($team->squads);
         }
         
         $this->assertSame(18, $squadCount);
@@ -134,50 +138,48 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
     {
         $population = $this->squadServer->serverPopulation();
 
-        $this->assertTrue($population->hasTeams());
+        $this->assertTrue(!!count($population->teams));
 
-        $t = $population->getTeam(1);
+        $t = $population->teams[1];
         $this->assertNotNull($t);
-        $this->assertSame('United States Army', $t->getName());
+        $this->assertSame('United States Army', $t->name);
 
-        $this->assertNull($population->getTeam(3));
+        $this->assertFalse(array_key_exists(3, $population->teams));
 
-        $this->assertSame(77, count($population->getPlayers()));
+        $this->assertSame(77, count($population->players()));
 
         $squadCount = 0;
         $playerCount = 0;
-        foreach ($population->getTeams() as $team) {
-            $squadCount += count($team->getSquads());
-            $teamPlayerCount = count($team->getPlayers());
-            foreach ($team->getSquads() as $squad) {
-                $teamPlayerCount += count($squad->getPlayers());
+        foreach ($population->teams as $team) {
+            $squadCount += count($team->squads);
+            $teamPlayerCount = count($team->players);
+            foreach ($team->squads as $squad) {
+                $teamPlayerCount += count($squad->players);
             }
             $playerCount += $teamPlayerCount;
 
-            if ($team->getId() === 1) {
-                $this->assertSame('United States Army', $team->getName());
-                $this->assertCount(8, $team->getSquads());
+            if ($team->id === 1) {
+                $this->assertSame('United States Army', $team->name);
+                $this->assertCount(8, $team->squads);
                 $this->assertSame(38, $teamPlayerCount);
 
-                foreach ($team->getSquads() as $squad) {
-                    if ($squad->getId() === 3) {
-                        $this->assertSame('CMD Squad', $squad->getName());
-                        $this->assertSame(9, $squad->getSize());
-                        $this->assertFalse(false, $squad->isLocked());
-                        $this->assertSame($team->getId(), $squad->getTeam()->getId());
-                        $this->assertSame('[1JGKP]Bud-Muecke (YT)', $squad->getCreatorName());
-                        $this->assertSame('76561198202943394', $squad->getCreatorSteamID());
-                        $this->assertSame('76561198202943394', $squad->getLeader()->getSteamId());
+                foreach ($team->squads as $squad) {
+                    if ($squad->id === 3) {
+                        $this->assertSame('CMD Squad', $squad->name);
+                        $this->assertSame(9, $squad->size);
+                        $this->assertFalse(false, $squad->locked);
+                        $this->assertSame('[1JGKP]Bud-Muecke (YT)', $squad->creatorName);
+                        $this->assertSame('76561198202943394', $squad->creatorSteamId);
+                        $this->assertSame('76561198202943394', $squad->leader()->steamId);
                         
                         $p = null;
                         /** @var \DSG\SquadRCON\Data\Player $player */
-                        foreach ($squad->getPlayers() as $player) {
-                            if ($player->getId() === 53) {
-                                $this->assertSame('76561198202943394', $player->getSteamId());
-                                $this->assertTrue($player->isLeader());
-                                $this->assertSame('[1JGKP]Bud-Muecke (YT)', $player->getName());
-                                $this->assertSame('USA_Marksman_01', $player->getRole());
-                                $this->assertSame($squad->getId(), $player->getSquad()->getId());
+                        foreach ($squad->players as $player) {
+                            if ($player->id === 53) {
+                                $this->assertSame('76561198202943394', $player->steamId);
+                                $this->assertTrue($player->leader);
+                                $this->assertSame('[1JGKP]Bud-Muecke (YT)', $player->name);
+                                $this->assertSame('USA_Marksman_01', $player->role);
                                 $p = $player;
                             }
                         }
@@ -186,8 +188,8 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
                     }
                 }
             } else {
-                $this->assertSame('Russian Ground Forces', $team->getName());
-                $this->assertCount(10, $team->getSquads());
+                $this->assertSame('Russian Ground Forces', $team->name);
+                $this->assertCount(10, $team->squads);
                 $this->assertSame(39, $teamPlayerCount);
             }
         }
@@ -197,8 +199,8 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
 
         $player = $population->getPlayerBySteamId('76561198202943394');
         $this->assertNotNull($player);
-        $this->assertSame(53, $player->getId());
-        $this->assertSame('[1JGKP]Bud-Muecke (YT)', $player->getName());
+        $this->assertSame(53, $player->id);
+        $this->assertSame('[1JGKP]Bud-Muecke (YT)', $player->name);
 
         $this->assertNull($population->getPlayerBySteamId('DoesCertainlyNotExist'));
     }

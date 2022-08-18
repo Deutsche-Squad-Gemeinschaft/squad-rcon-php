@@ -3,7 +3,7 @@
 namespace DSG\SquadRCON\Runners;
 
 use DSG\SquadRCON\Contracts\ServerCommandRunner;
-use DSG\SquadRCON\Data\ServerConnectionInfo;
+use DSG\SquadRCON\Data\Objects\ServerConnectionInfo;
 use xPaw\SourceQuery\SourceQuery;
 
 class SquadRconRunner implements ServerCommandRunner {

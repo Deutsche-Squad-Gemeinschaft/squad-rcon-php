@@ -107,7 +107,7 @@ class SquadServer
                 );
                 
                 /* Reference Team */
-                $currentTeam->squads[] = $squad;
+                $currentTeam->squads[$squad->id] = $squad;
             }
         }
 
@@ -146,20 +146,19 @@ class SquadServer
                     role: $matches[7]
                 );
 
-                /* Set Team and Squad references if ListSquads output is provided */
-                if ($population && count($population->teams) && $matches[4] !== 'N/A' && $population->teams[$matches[4]]) {
-                    /* Get the Team */
-                    $player->team = $population->teams[$matches[4]];
+                /* Set Team and Squad references if Population objectwith ListSquads output is provided */
+                if ($population && count($population->teams) && $matches[4] !== 'N/A' && array_key_exists($matches[4], $population->teams)) {
+                    $team = $population->teams[$matches[4]];
 
-                    if (count($player->team->squads) && $matches[5] !== 'N/A' && array_key_exists($matches[5], $player->team->squads)) {
+                    if (count($team->squads) && $matches[5] !== 'N/A' && array_key_exists($matches[5], $team->squads)) {
                         /* Get the Squad */
-                        $squad = $player->team->squads[$matches[5]];
+                        $squad = $team->squads[$matches[5]];
 
                         /* Add the Player to the Squad */
                         $squad->players[] = $player;
                     } else {
                         /* Add as unassigned Player to the Team instance */
-                        $player->team->players[] = $player;
+                        $team->players[] = $player;
                     }
                 }
 

@@ -140,7 +140,7 @@ class VirtualServerTest extends \DSG\SquadRCON\Tests\TestCase {
 
         $this->assertTrue(!!count($population->teams));
 
-        $t = $population->teams[1];
+        $t = reset($population->teams);
         $this->assertNotNull($t);
         $this->assertSame('United States Army', $t->name);
 

@@ -92,7 +92,11 @@ use DSG\SquadRCON\SquadServer;
 ...
 
 /** @var SquadServer */
-$server = new SquadServer(new ServerConnectionInfo(host: '127.0.0.1', port: 21114, password: 'YourRconPassword'));
+$server = new SquadServer(new ServerConnectionInfo(
+    host: '127.0.0.1',
+    port: 21114,
+    password: 'YourRconPassword'
+));
 ```
 
 ### Get current server population (Teams, Squads, Players)

@@ -15,7 +15,7 @@ jobs:
       env:
         runner: self-hosted
     - name: Pull repository
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
     - name: Run composer install
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
     - name: Stop & Remove any previous Server

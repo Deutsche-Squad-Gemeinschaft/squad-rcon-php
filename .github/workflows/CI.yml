@@ -4,6 +4,12 @@ jobs:
   unit-tests:
     runs-on: [self-hosted, linux, x64, ec2]
     steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.1
+      env:
+        runner: self-hosted
     - name: Pull repository
       uses: actions/checkout@v1
     - name: Run composer install

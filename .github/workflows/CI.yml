@@ -3,11 +3,14 @@ on: [push]
 jobs:
   unit-tests:
     runs-on: [self-hosted, linux, x64, ec2]
+    strategy:
+      matrix:
+        php: ['8.0', '8.1']
     steps:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 8.1
+        php: ${{ matrix.php-versions }}
       env:
         runner: self-hosted
     - name: Pull repository

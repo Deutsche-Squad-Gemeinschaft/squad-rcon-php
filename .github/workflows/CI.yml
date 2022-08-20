@@ -10,7 +10,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php: ${{ matrix.php-versions }}
+        php-version: ${{ matrix.php }}
       env:
         runner: self-hosted
     - name: Pull repository

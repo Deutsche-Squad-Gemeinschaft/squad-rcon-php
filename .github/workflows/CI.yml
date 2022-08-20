@@ -3,6 +3,7 @@ on: [push]
 jobs:
   unit-tests:
     runs-on: [self-hosted, linux, x64, ec2]
+    continue-on-error: true
     strategy:
       matrix:
         php: ['8.0', '8.1']

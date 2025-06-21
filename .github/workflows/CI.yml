@@ -2,11 +2,11 @@ name: CI
 on: [push]
 jobs:
   unit-tests:
-    runs-on: [self-hosted, linux, x64, ec2]
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.0', '8.1']
+        php: ['8.0', '8.1', '8.2', '8.3', '8.4']
     steps:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -14,33 +14,17 @@ jobs:
         php-version: ${{ matrix.php }}
       env:
         runner: self-hosted
+        
     - name: Pull repository
       uses: actions/checkout@v3
+      
     - name: Run composer install
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-    - name: Stop & Remove any previous Server
-      run: docker stop squad-server || true  && docker rm squad-server || true
-    - name: Create the squad-server container and install the server
-      run: docker run -d --net=bridge -e PORT=7787 -e QUERYPORT=27165 -e RCONPORT=21114 --name=squad-server cm2network/squad
-    - name: Wait for Squad Server to install & boot
-      run: chmod +x .github/waitForServerStartup.sh && ./.github/waitForServerStartup.sh
-    - name: Stop the container
-      run: docker stop squad-server
-    - name: Add the correct Rcon.cfg
-      run: docker cp $PWD/tests/ServerFolder/SquadGame/ServerConfig/Rcon.cfg squad-server:/home/steam/squad-dedicated/SquadGame/ServerConfig/Rcon.cfg
-    - name: Re-start the squad-server container
-      run: docker start squad-server
-    - name: Wait for Squad Server to boot
-      run: chmod +x .github/waitForServerStartup.sh && ./.github/waitForServerStartup.sh
-    - name: Give it some more time to boot just to be safe
-      run: sleep 30
-    - name: Log Squad Server
-      run: docker logs squad-server
+      
     - name: Run PHPUnit
       run: rm -f coverage.xml && vendor/bin/phpunit --coverage-clover=coverage.xml
+      
     - name: Upload coverage to Codecov
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       run: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
-    - name: Stop the Squad Server
-      run: docker stop squad-server || true
